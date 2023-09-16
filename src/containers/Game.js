@@ -11,13 +11,13 @@ import {
   noOfColumn,
   numberOfRow,
   moveTime,
-  windowWidth,
+ 
   checkWordTime,
 } from "../config/config";
 import { checkWord, sortWordQueue } from "../config/wordCheck";
 import {
   saveHighScore,
-  getHighScore,
+ 
   scoreForThisWord,
 } from "../config/SaveScore";
 import { lettersAdjustedPerWeight } from "../config/GenerateLetter";
@@ -164,7 +164,7 @@ class Game extends Component {
           this.letters[i].pos.y = this.letters[i].pos.y + 1;
         }
 
-        if (this.letters[i].pos.y == numberOfRow - 1 || alreadyHas) {
+        if (this.letters[i].pos.y === numberOfRow - 1 || alreadyHas) {
           this.letters[i].moving = false;
         }
         updatedSomething = true;
@@ -176,9 +176,9 @@ class Game extends Component {
   };
 
   _startGame = () => {
-    if (this.gameState != GAMESTATE.PAUSED) this.setState({ score: 0 });
+    if (this.gameState !== GAMESTATE.PAUSED) this.setState({ score: 0 });
     this.gameState = GAMESTATE.IN_PROGRESS;
-    if (this.letters.length == 0) {
+    if (this.letters.length === 0) {
       this.generateLetter();
     }
     setTimeout(this.startMoving, moveTime);
@@ -198,7 +198,7 @@ class Game extends Component {
 
   _alreadyHasLetterInPos = (pos) => {
     for (let i = 0; i < this.letters.length; i++) {
-      if (this.letters[i].pos.x == pos.x && this.letters[i].pos.y == pos.y) {
+      if (this.letters[i].pos.x === pos.x && this.letters[i].pos.y === pos.y) {
         return true;
       }
     }
@@ -214,10 +214,10 @@ class Game extends Component {
           y: this.letters[i].pos.y + 1,
         });
         if (!alreadyHas) this.letters[i].pos.y = this.letters[i].pos.y + 1;
-        if (this.letters[i].pos.y == numberOfRow - 1 || alreadyHas) {
+        if (this.letters[i].pos.y === numberOfRow - 1 || alreadyHas) {
           this.letters[i].moving = false;
         }
-        if (this.letters[i].pos.y == 0) {
+        if (this.letters[i].pos.y === 0) {
           // so basically one column is full Game over
           saveHighScore(this.state.score);
           this.letters = [];
@@ -269,7 +269,7 @@ class Game extends Component {
 
   _getLetterAtPos = (pos) => {
     for (let i = 0; i < this.letters.length; i++) {
-      if (this.letters[i].pos.x == pos.x && this.letters[i].pos.y == pos.y) {
+      if (this.letters[i].pos.x === pos.x && this.letters[i].pos.y === pos.y) {
         return this.letters[i];
       }
     }
@@ -304,7 +304,7 @@ class Game extends Component {
   _getLetterForThisColumn = (column) => {
     const _letterInColumn = [];
     for (let i = 0; i < this.letters.length; i++) {
-      if (this.letters[i].pos.x === column)
+      if (this.letters[i].pos.x ==== column)
         _letterInColumn.push(this.letters[i]);
     }
     return _letterInColumn;
@@ -329,7 +329,7 @@ class Game extends Component {
 
   _onLetterClick = (letter) => {
     this.letters.find((_l) => {
-      if (_l && _l.pos.x == letter.pos.x && _l.pos.y == letter.pos.y) {
+      if (_l && _l.pos.x === letter.pos.x && _l.pos.y === letter.pos.y) {
         _l.isWord = !_l.isWord;
 
         if (_l.isWord) this.wordQueue.push(letter);
@@ -337,7 +337,7 @@ class Game extends Component {
           //remove from wordQueue
           this.wordQueue.splice(
             this.wordQueue.findIndex(
-              (_l) => _l && _l.pos.x == letter.pos.x && _l.pos.y == letter.pos.y
+              (_l) => _l && _l.pos.x === letter.pos.x && _l.pos.y === letter.pos.y
             ),
             1
           );
@@ -365,7 +365,7 @@ class Game extends Component {
       if (this.wordQueue.length > 1) {
         for (let i = 0; i < this.wordQueue.length - 1; i++) {
           if (
-            Math.abs(this.wordQueue[i].pos.x - this.wordQueue[i + 1].pos.x) != 1
+            Math.abs(this.wordQueue[i].pos.x - this.wordQueue[i + 1].pos.x) !== 1
           ) {
             wordIsInRow = false;
           }
@@ -376,7 +376,7 @@ class Game extends Component {
         // if not in row then only we will check for column
         for (let i = 0; i < this.wordQueue.length - 1; i++) {
           if (
-            Math.abs(this.wordQueue[i].pos.y - this.wordQueue[i + 1].pos.y) != 1
+            Math.abs(this.wordQueue[i].pos.y - this.wordQueue[i + 1].pos.y) !== 1
           ) {
             wordIsInColumn = false;
           }
@@ -403,7 +403,7 @@ class Game extends Component {
     // valid word
     this.letters = this.letters.filter((_letter) => {
       const _letterInWordQueue = this.wordQueue.find(
-        (_wl) => _wl.pos.x == _letter.pos.x && _wl.pos.y == _letter.pos.y
+        (_wl) => _wl.pos.x === _letter.pos.x && _wl.pos.y === _letter.pos.y
       );
       if (_letterInWordQueue) return false;
       return true;
@@ -414,7 +414,7 @@ class Game extends Component {
     if (wordIsInRow) {
       this.wordQueue.forEach((_wq) => {
         this.letters.forEach((_l) => {
-          if (_l.pos.x == _wq.pos.x && _l.pos.y < _wq.pos.y) {
+          if (_l.pos.x === _wq.pos.x && _l.pos.y < _wq.pos.y) {
             _l.pos.y = _l.pos.y + 1;
           }
         });
@@ -422,7 +422,7 @@ class Game extends Component {
     } else if (wordIsInColumn) {
       this.letters.forEach((_l) => {
         if (
-          _l.pos.x == this.wordQueue[0].pos.x &&
+          _l.pos.x === this.wordQueue[0].pos.x &&
           _l.pos.y < this.wordQueue[0].pos.y
         ) {
           _l.pos.y = _l.pos.y + this.wordQueue.length;
@@ -444,14 +444,14 @@ class Game extends Component {
             {`Score : ${this.state.score}`}{" "}
           </div>
         </div>
-        {this.gameState != GAMESTATE.ENDED && (
+        {this.gameState !== GAMESTATE.ENDED && (
           <div className={css(styles.gameContainer)}>{this._getColumn()}</div>
         )}
         {this.gameState === GAMESTATE.ENDED && (
           <GameOver score={this.state.score} />
         )}
         <div className={css(styles.controlContainer)}>
-          {this.gameState != GAMESTATE.IN_PROGRESS && (
+          {this.gameState !== GAMESTATE.IN_PROGRESS && (
             <Button
               variant="contained"
               size="small"
@@ -463,7 +463,7 @@ class Game extends Component {
               {this.letters.length > 0 ? "Resume" : "Start"}
             </Button>
           )}
-          {this.gameState != GAMESTATE.PAUSED &&
+          {this.gameState !== GAMESTATE.PAUSED &&
             this.gameState === GAMESTATE.IN_PROGRESS && (
               <Button
                 variant="contained"
@@ -488,7 +488,7 @@ class Game extends Component {
               Destroy
             </Button>
           )}
-          {this.gameState != GAMESTATE.PAUSED &&
+          {this.gameState !== GAMESTATE.PAUSED &&
             this.gameState === GAMESTATE.IN_PROGRESS && (
               <Button
                 variant="contained"
@@ -500,7 +500,7 @@ class Game extends Component {
                 <LeftIcon />
               </Button>
             )}
-          {this.gameState != GAMESTATE.PAUSED &&
+          {this.gameState !== GAMESTATE.PAUSED &&
             this.gameState === GAMESTATE.IN_PROGRESS && (
               <Button
                 variant="contained"
@@ -512,7 +512,7 @@ class Game extends Component {
                 <DownIcon />
               </Button>
             )}
-          {this.gameState != GAMESTATE.PAUSED &&
+          {this.gameState !== GAMESTATE.PAUSED &&
             this.gameState === GAMESTATE.IN_PROGRESS && (
               <Button
                 variant="contained"
