@@ -16,7 +16,7 @@ export default class BlockColumn extends Component {
     const { letters } = this.props;
     if (letters) {
       for (let i = 0; i < letters.length; i++) {
-        if (letters[i].pos.y == bId) {
+        if (letters[i].pos.y === bId) {
           return letters[i];
         }
       }
