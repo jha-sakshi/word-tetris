@@ -304,7 +304,7 @@ class Game extends Component {
   _getLetterForThisColumn = (column) => {
     const _letterInColumn = [];
     for (let i = 0; i < this.letters.length; i++) {
-      if (this.letters[i].pos.x ==== column)
+      if (this.letters[i].pos.x === column)
         _letterInColumn.push(this.letters[i]);
     }
     return _letterInColumn;
