@@ -328,32 +328,31 @@ class Game extends Component {
   };
 
   _onLetterClick = (letter) => {
-    this.letters.find((_l) => {
-      if (_l && _l.pos.x === letter.pos.x && _l.pos.y === letter.pos.y) {
-        _l.isWord = !_l.isWord;
+   this.letters.forEach((_l) => {
+  if (_l && _l.pos.x === letter.pos.x && _l.pos.y === letter.pos.y) {
+    _l.isWord = !_l.isWord;
 
-        if (_l.isWord) this.wordQueue.push(letter);
-        else {
-          //remove from wordQueue
-          this.wordQueue.splice(
-            this.wordQueue.findIndex(
-              (_l) => _l && _l.pos.x === letter.pos.x && _l.pos.y === letter.pos.y
-            ),
-          1,
-          );
-        }
+    if (_l.isWord) this.wordQueue.push(letter);
+    else {
+      //remove from wordQueue
+      const indexToRemove = this.wordQueue.findIndex(
+        (_w) => _w && _w.pos.x === letter.pos.x && _w.pos.y === letter.pos.y
+      );
+      if (indexToRemove !== -1) {
+        this.wordQueue.splice(indexToRemove, 1);
       }
-    });
+    }
+  }
+});
 
-    this.setState({ updateFlag: !this.state.updateFlag });
+this.setState({ updateFlag: !this.state.updateFlag });
 
-    //check word automatically
-    clearTimeout(this.checkWordAutomatic);
-    this.checkWordAutomatic = setTimeout(
-      this._checkWordAndDestroy,
-      checkWordTime
-    );
-  };
+//check word automatically
+clearTimeout(this.checkWordAutomatic);
+this.checkWordAutomatic = setTimeout(
+  this._checkWordAndDestroy,
+  checkWordTime
+);
 
   _checkWordAndDestroy = () => {
     if (this.wordQueue.length > 0) {
