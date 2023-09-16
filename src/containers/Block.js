@@ -49,7 +49,7 @@ export default class Block extends Component {
   };
 
   render() {
-    const { letter, pos } = this.props;
+    const { letter } = this.props;
 
     let fillerStyle = { border: "" };
     if (letter) {
