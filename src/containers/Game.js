@@ -339,7 +339,7 @@ class Game extends Component {
             this.wordQueue.findIndex(
               (_l) => _l && _l.pos.x === letter.pos.x && _l.pos.y === letter.pos.y
             ),
-            1
+            return 1;
           );
         }
       }
